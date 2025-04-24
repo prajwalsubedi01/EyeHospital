@@ -32,9 +32,8 @@ const MechiEyeSection = () => {
         {/* Right Side - Buttons */}
         <div className="lg:col-span-1 flex flex-col gap-4 w-full">
           {[
-            { icon: FaEye, text: "Eye Donation Form" },
             { icon: FaUserMd, text: "Our Services" },
-            { icon: FaMapMarkerAlt, text: "PECC Locations" },
+            { icon: FaMapMarkerAlt, text: "MEAH Location" },
             { icon: FaTimes, text: "Public Holidays" },
           ].map(({ icon: Icon, text }, index) => (
             <button

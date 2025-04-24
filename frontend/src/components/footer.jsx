@@ -18,17 +18,34 @@ const Footer = () => {
         <div>
           <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
           {[
-            { icon: FaPhoneAlt, text: "+977-9802331992 / +977-9802331993" },
-            { icon: FaPhoneAlt, text: "Inpatient Support: +977-9801422415" },
-            { icon: FaPhoneAlt, text: "Eye Donation: +977-9801442493" },
-            { icon: FaEnvelope, text: "mecc@ntc.net.np" },
-          ].map(({ icon: Icon, text }, index) => (
-            <p
+            {
+              icon: FaPhoneAlt,
+              text: "+977-9802331992 / +977-9802331993",
+              link: "tel:+9779802331992",
+            },
+            {
+              icon: FaPhoneAlt,
+              text: "Inpatient Support: +977-9801422415",
+              link: "tel:+9779801422415",
+            },
+            {
+              icon: FaPhoneAlt,
+              text: "Eye Donation: +977-9801442493",
+              link: "tel:+9779801442493",
+            },
+            {
+              icon: FaEnvelope,
+              text: "mecc@ntc.net.np",
+              link: "mailto:mecc@ntc.net.np",
+            },
+          ].map(({ icon: Icon, text, link }, index) => (
+            <a
               key={index}
-              className="flex items-center gap-2 text-gray-400 justify-center md:justify-start mt-2"
+              href={link}
+              className="flex items-center gap-2 text-gray-400 hover:text-white justify-center md:justify-start mt-2 transition-colors"
             >
               <Icon /> {text}
-            </p>
+            </a>
           ))}
         </div>
 
@@ -120,7 +137,7 @@ const Footer = () => {
       <div className="fixed bottom-6 right-6 flex flex-col gap-4 z-50">
         {/* WhatsApp Button */}
         <a
-          href="https://wa.me/yourphonenumber"
+          href="https://wa.me/+9779826991540"
           className="bg-green-500 text-white p-3 rounded-full shadow-lg hover:bg-green-600 transition transform hover:scale-110"
           target="_blank"
           rel="noopener noreferrer"

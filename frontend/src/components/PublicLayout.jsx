@@ -15,8 +15,8 @@ import FaQs from './../pages/faqs.jsx';
 const PublicLayout = () => {
   return (
     <>
-      <Topnav />
       <Navbar />
+      <div className="pt-20">
       <Routes>
         <Route path="/" element={<Carousel />} />
         <Route path="/about/introduction" element={<Introduction />} />
@@ -27,6 +27,7 @@ const PublicLayout = () => {
         <Route path="/faqs" element={<FaQs />} />
       </Routes>
       <Footer />
+      </div>
     </>
   );
 };

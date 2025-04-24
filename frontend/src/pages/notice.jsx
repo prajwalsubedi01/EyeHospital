@@ -29,7 +29,7 @@ const NoticePage = () => {
 
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-4xl font-extrabold text-center text-blue-700 mb-8">📢 Latest Notices</h1>
+      <h1 className="text-4xl font-bold text-center text-gray-700 mb-8">📢 Latest Notices</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {notices.map((notice) => (
