@@ -18,7 +18,7 @@ const AdminLogin = () => {
     setErrorMessage("");
 
     try {
-      const response = await axios.post("http://localhost:5000/api/admin/login", {
+      const response = await axios.post("https://eyehospital-kkd8.onrender.com/api/admin/login", {
         email,
         password,
       });
