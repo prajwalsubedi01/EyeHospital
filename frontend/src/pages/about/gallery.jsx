@@ -58,7 +58,7 @@ const GalleryPage = () => {
 
   return (
     <div style={styles.container}>
-      <h2 style={styles.heading}>Our Photo Gallery</h2>
+      <h2 style={styles.heading}>📸Our Photo Gallery</h2>
 
       <div style={gridStyle}>
         {photos.map((photo, index) => (

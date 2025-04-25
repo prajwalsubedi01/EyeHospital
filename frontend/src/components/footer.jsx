@@ -20,22 +20,22 @@ const Footer = () => {
           {[
             {
               icon: FaPhoneAlt,
-              text: "+977-9802331992 / +977-9802331993",
-              link: "tel:+9779802331992",
+              text: "023-591464 / +977-9802331993",
+              link: "tel:023-591464",
             },
             {
               icon: FaPhoneAlt,
-              text: "Inpatient Support: +977-9801422415",
+              text: "FrontDesk Support: +977-9801422415",
               link: "tel:+9779801422415",
             },
             {
               icon: FaPhoneAlt,
-              text: "Eye Donation: +977-9801442493",
+              text: "Eye Checkup: +977-9801442493",
               link: "tel:+9779801442493",
             },
             {
               icon: FaEnvelope,
-              text: "mecc@ntc.net.np",
+              text: "mechiaesthetic@gmail.com.np",
               link: "mailto:mecc@ntc.net.np",
             },
           ].map(({ icon: Icon, text, link }, index) => (

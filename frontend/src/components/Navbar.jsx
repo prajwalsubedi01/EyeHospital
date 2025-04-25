@@ -140,7 +140,7 @@ import {
   FaCalendarCheck,
   FaChevronDown,
 } from "react-icons/fa";
-import Mainlogo from "./../assets/images/mainlogo.jpg";
+import Mainlogo from "./../assets/images/mainlogo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -152,7 +152,7 @@ const Navbar = () => {
       <div className="container mx-auto flex justify-between items-center px-4 py-3">
         {/* Left Section - Logo */}
         <div className="flex items-center gap-3">
-          <img src={Mainlogo} alt="Logo" className="h-12 w-auto" />
+          <img src={Mainlogo} alt="Logo" className="h-14 w-auto" />
           <h1 className="text-lg font-semibold text-blue-700">
             Mechi Eye & Aesthetic
           </h1>
@@ -229,7 +229,7 @@ const Navbar = () => {
           <img
             src={Mainlogo}
             alt="Logo"
-            className="h-10 w-auto hidden lg:block"
+            className="h-14 w-auto hidden lg:block"
           />
           <Link
             to="/appointment"

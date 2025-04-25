@@ -1,18 +1,20 @@
 import React from "react";
 import { FaEye, FaUserMd, FaMapMarkerAlt, FaTimes } from "react-icons/fa";
-import EyeCheckup from "./../assets/images/car2.jpg";
+import EyeCheckup from "./../assets/images/welcome.jpeg";
 
 const MechiEyeSection = () => {
   return (
     <div className="max-w-screen-xl mx-auto px-4 py-12">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-center">
-        {/* Left Side - Image */}
+        {/* Left Side - Circular Image */}
         <div className="lg:col-span-1 flex justify-center">
-          <img
-            src={EyeCheckup}
-            alt="Eye Checkup"
-            className="w-full max-w-md h-auto rounded-lg shadow-lg"
-          />
+          <div className="w-64 h-64 rounded-full overflow-hidden border-4 border-blue-600 shadow-xl">
+            <img
+              src={EyeCheckup}
+              alt="Eye Checkup"
+              className="w-full h-full object-cover"
+            />
+          </div>
         </div>
 
         {/* Center - Text Content */}

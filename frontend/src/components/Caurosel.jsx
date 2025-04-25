@@ -9,8 +9,8 @@ import Welcome from './welcome.jsx';
 import Car1 from "./../assets/images/car1.jpg";
 import Car2 from "./../assets/images/car2.jpg";
 import Car3 from "./../assets/images/car3.jpg";
-
-const images = [Car1, Car2, Car1, Car3, Car2];
+import Car4 from './../assets/images/car4.jpeg';
+const images = [Car1, Car4, Car2, Car3, Car2];
 
 const ImageSlider = () => {
   return (
@@ -23,7 +23,7 @@ const ImageSlider = () => {
         spaceBetween={0}
         navigation
         pagination={{ clickable: true }}
-        autoplay={{ delay: 5000, disableOnInteraction: false }} // Auto-slide every 5 sec
+        autoplay={{ delay: 4000, disableOnInteraction: false }} // Auto-slide every 5 sec
         className="rounded-none"
       >
         {images.map((image, index) => (

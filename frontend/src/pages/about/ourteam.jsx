@@ -18,23 +18,26 @@ const TeamPage = () => {
   };
 
   return (
-    <div className="bg-gray-50 py-12 px-6 md:px-12">
-      <h1 className="text-4xl font-bold text-center text-gray-800 mb-7">🧑‍⚕️Meet Our Team</h1>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div className="bg-gray-100 py-10 px-4 md:px-10 lg:px-20">
+      <h1 className="text-3xl md:text-4xl font-bold text-center text-blue-700 mb-10">
+        🧑‍⚕️ Meet Our Team
+      </h1>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {team.map((member) => (
-          <div key={member._id} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-            <div className="w-full flex justify-center mb-4">
-              {member.image && (
-                <img
-                  src={`http://localhost:5000/uploads/${member.image}`}
-                  alt={member.name}
-                  className="w-32 h-32 object-cover rounded-full border-4 border-blue-500"
-                />
-              )}
-            </div>
-            <h3 className="text-xl font-semibold text-center text-gray-800">{member.name}</h3>
-            <p className="text-center text-gray-600 mt-2">{member.post}</p>
+          <div
+            key={member._id}
+            className=" rounded-xl  hover:shadow-lg transition duration-300 p-4 flex flex-col items-center text-center"
+          >
+            {member.image && (
+              <img
+                src={`http://localhost:5000/uploads/${member.image}`}
+                alt={member.name}
+                className="w-24 h-24 object-cover rounded-full border-4 border-blue-500 mb-3"
+              />
+            )}
+            <h3 className="text-lg font-semibold text-gray-800">{member.name}</h3>
+            <p className="text-sm text-gray-600">{member.post}</p>
           </div>
         ))}
       </div>
