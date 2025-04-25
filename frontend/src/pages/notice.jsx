@@ -7,7 +7,7 @@ const NoticePage = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/notice")
+      .get("https://eyehospital-kkd8.onrender.com/api/notice")
       .then((response) => {
         setNotices(response.data);
         setLoading(false);
@@ -38,9 +38,9 @@ const NoticePage = () => {
             className="bg-white shadow-lg rounded-xl p-6 transition duration-300 transform hover:scale-105 hover:shadow-2xl"
           >
             {notice.image && (
-              <a href={`http://localhost:5000/uploads/${notice.image}`} target="_blank" rel="noopener noreferrer">
+              <a href={`https://eyehospital-kkd8.onrender.com/uploads/${notice.image}`} target="_blank" rel="noopener noreferrer">
                 <img
-                  src={`http://localhost:5000/uploads/${notice.image}`}
+                  src={`https://eyehospital-kkd8.onrender.com/uploads/${notice.image}`}
                   alt="Notice"
                   className="h-60 w-full object-cover rounded-xl shadow-md hover:opacity-90 transition"
                 />

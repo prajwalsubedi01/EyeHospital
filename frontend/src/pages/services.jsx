@@ -45,7 +45,7 @@ const ServicePage = () => {
                       src={
                         service.image.startsWith("http")
                           ? service.image
-                          : `http://localhost:5000/uploads/${service.image}`
+                          : `https://eyehospital-kkd8.onrender.com/uploads/${service.image}`
                       }
                       alt={service.title}
                       className="w-32 h-32 object-cover rounded-full border-4 border-blue-600 mx-auto"

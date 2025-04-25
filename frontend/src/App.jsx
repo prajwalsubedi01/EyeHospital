@@ -1,9 +1,13 @@
-
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
-// Import components
-import PublicLayout from "./components/PublicLayout"; 
+// Layouts and Pages
+import PublicLayout from "./components/PublicLayout";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import NoticeManagement from "./pages/admin/NoticeManagement";
@@ -12,31 +16,36 @@ import TeamManagement from "./pages/admin/TeamManagement";
 import ServicesManagement from "./pages/admin/ServicesManagement";
 import UsersManagement from "./pages/admin/UsersManagement";
 import AppointmentMangement from "./pages/admin/AppointmentMangement";
-import NotFound from "./pages/NotFound"; // Optional 404 page
+import NotFound from "./pages/NotFound";
 
 const App = () => {
-  const isAuthenticated = localStorage.getItem("adminToken"); // Check for token in localStorage
+  const isAuthenticated = localStorage.getItem("adminToken");
 
   return (
     <Router>
       <Routes>
-        {/* Public Routes */}
+        {/* Public Pages */}
         <Route path="/*" element={<PublicLayout />} />
 
         {/* Admin Login Route */}
         <Route path="/admin-login" element={<AdminLogin />} />
 
-        {/* Protected Admin Routes */}
-        <Route path="/admin" element={isAuthenticated ? <AdminDashboard /> : <Navigate to="/admin-login" />}>
-          <Route path="notice" element={isAuthenticated ? <NoticeManagement /> : <Navigate to="/admin-login" />} />
-          <Route path="gallery" element={isAuthenticated ? <GalleryManagement /> : <Navigate to="/admin-login" />} />
-          <Route path="team" element={isAuthenticated ? <TeamManagement /> : <Navigate to="/admin-login" />} />
-          <Route path="services" element={isAuthenticated ? <ServicesManagement /> : <Navigate to="/admin-login" />} />
-          <Route path="users" element={isAuthenticated ? <UsersManagement /> : <Navigate to="/admin-login" />} />
-          <Route path="appointments" element={isAuthenticated ? <AppointmentMangement /> : <Navigate to="/admin-login" />} />
-        </Route>
+        {/* Protected Admin Area */}
+        {isAuthenticated ? (
+          <Route path="/admin" element={<AdminDashboard />}>
+            <Route path="notice" element={<NoticeManagement />} />
+            <Route path="gallery" element={<GalleryManagement />} />
+            <Route path="team" element={<TeamManagement />} />
+            <Route path="services" element={<ServicesManagement />} />
+            <Route path="users" element={<UsersManagement />} />
+            <Route path="appointments" element={<AppointmentMangement />} />
+          </Route>
+        ) : (
+          // If not authenticated, redirect any /admin route to login
+          <Route path="/admin/*" element={<Navigate to="/admin-login" replace />} />
+        )}
 
-        {/* 404 Page */}
+        {/* 404 Fallback */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
