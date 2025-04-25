@@ -44,7 +44,7 @@ const GalleryManagement = () => {
   const handleDelete = async (id) => {
     console.log("Trying to delete:", id);
     try {
-      await axios.delete(`http://localhost:5000/api/gallery/${id}`);
+      await axios.delete(`https://eyehospital-kkd8.onrender.com/api/gallery/${id}`);
       fetchImages();
     } catch (err) {
       console.error("Failed to delete image", err.response?.data || err.message);

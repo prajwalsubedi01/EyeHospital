@@ -11,7 +11,7 @@ const GalleryPage = () => {
   useEffect(() => {
     const fetchPhotos = async () => {
       try {
-        const res = await axios.get('https://eyehospital-kkd8.onrender.com/api/gallery');
+        const res = await axios.get('https://eyehospital-kkd8.onrender.com/gallery');
         setPhotos(res.data);
       } catch (err) {
         console.error('Error fetching photos:', err);

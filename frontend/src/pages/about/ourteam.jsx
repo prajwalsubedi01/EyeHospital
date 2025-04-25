@@ -10,7 +10,7 @@ const TeamPage = () => {
 
   const fetchTeamMembers = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/team");
+      const response = await axios.get("https://eyehospital-kkd8.onrender.com/api/team");
       setTeam(response.data);
     } catch (error) {
       console.error("Error fetching team members:", error);
@@ -31,7 +31,7 @@ const TeamPage = () => {
           >
             {member.image && (
               <img
-                src={`http://localhost:5000/uploads/${member.image}`}
+                src={`https://eyehospital-kkd8.onrender.com/uploads/${member.image}`}
                 alt={member.name}
                 className="w-24 h-24 object-cover rounded-full border-4 border-blue-500 mb-3"
               />

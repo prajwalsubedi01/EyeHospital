@@ -20,7 +20,7 @@ const NoticeManagement = () => {
   const fetchNotices = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://localhost:5000/api/notice");
+      const res = await axios.get("https://eyehospital-kkd8.onrender.com/api/notice");
       setNotices(res.data);
     } catch (err) {
       console.error("Failed to fetch notices", err);
@@ -38,9 +38,9 @@ const NoticeManagement = () => {
 
     try {
       if (editingId) {
-        await axios.put(`http://localhost:5000/api/notice/${editingId}`, formData);
+        await axios.put(`https://eyehospital-kkd8.onrender.com/api/notice/${editingId}`, formData);
       } else {
-        await axios.post("http://localhost:5000/api/notice", formData);
+        await axios.post("https://eyehospital-kkd8.onrender.com/api/notice", formData);
       }
       fetchNotices();
       setTitle("");
@@ -57,7 +57,7 @@ const NoticeManagement = () => {
     if (!window.confirm("Are you sure you want to delete this notice?")) return;
     setLoading(true);
     try {
-      await axios.delete(`http://localhost:5000/api/notice/${id}`);
+      await axios.delete(`https://eyehospital-kkd8.onrender.com/api/notice/${id}`);
       setNotices(notices.filter((notice) => notice._id !== id));
     } catch (error) {
       console.error("Error deleting notice", error);
@@ -106,12 +106,12 @@ const NoticeManagement = () => {
               <td className="border p-2">
                 {notice.image && (
                   <img
-  src={notice.image.startsWith("http") ? notice.image : `http://localhost:5000/uploads/${notice.image}`}
+  src={notice.image.startsWith("http") ? notice.image : `https://eyehospital-kkd8.onrender.com/uploads/${notice.image}`}
   alt="Notice"
   className="h-16 w-16 rounded-md cursor-pointer"
   onClick={() =>
     window.open(
-      notice.image.startsWith("http") ? notice.image : `http://localhost:5000/uploads/${notice.image}`,
+      notice.image.startsWith("http") ? notice.image : `https://eyehospital-kkd8.onrender.com/uploads/${notice.image}`,
       "_blank"
     )
   }

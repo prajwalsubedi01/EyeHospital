@@ -11,7 +11,8 @@ frontend/dist/
 frontend/build/
 
 # Optional: ignore uploads if storing images locally
-backend/uploads/
+
+
 
 # OS-specific files
 .DS_Store

@@ -13,7 +13,7 @@ const ServicePage = () => {
   const fetchServices = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://localhost:5000/api/services");
+      const res = await axios.get("https://eyehospital-kkd8.onrender.com/api/services");
       setServices(res.data);
     } catch (err) {
       console.error("Failed to fetch services", err);
