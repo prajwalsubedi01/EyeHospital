@@ -12,7 +12,7 @@ const GalleryManagement = () => {
 
   const fetchImages = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/gallery");
+      const res = await axios.get("https://eyehospital-kkd8.onrender.com/api/gallery");
       setImages(res.data);
     } catch (err) {
       console.error("Failed to fetch images", err);
@@ -32,7 +32,7 @@ const GalleryManagement = () => {
     formData.append("image", selectedFile);
 
     try {
-      await axios.post("http://localhost:5000/api/gallery", formData);
+      await axios.post("https://eyehospital-kkd8.onrender.com/api/gallery", formData);
       setSelectedFile(null);
       setPreview(null);
       fetchImages();

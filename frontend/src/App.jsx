@@ -6,7 +6,7 @@ import {
   Navigate,
 } from "react-router-dom";
 
-// Layouts and Pages
+// Components
 import PublicLayout from "./components/PublicLayout";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -24,13 +24,10 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        {/* Public Pages */}
-        <Route path="/*" element={<PublicLayout />} />
-
-        {/* Admin Login Route */}
+        {/* Admin Login (must be before catch-alls) */}
         <Route path="/admin-login" element={<AdminLogin />} />
 
-        {/* Protected Admin Area */}
+        {/* Admin Dashboard + Protected Routes */}
         {isAuthenticated ? (
           <Route path="/admin" element={<AdminDashboard />}>
             <Route path="notice" element={<NoticeManagement />} />
@@ -41,11 +38,13 @@ const App = () => {
             <Route path="appointments" element={<AppointmentMangement />} />
           </Route>
         ) : (
-          // If not authenticated, redirect any /admin route to login
           <Route path="/admin/*" element={<Navigate to="/admin-login" replace />} />
         )}
 
-        {/* 404 Fallback */}
+        {/* Public Routes */}
+        <Route path="/*" element={<PublicLayout />} />
+
+        {/* Fallback 404 */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

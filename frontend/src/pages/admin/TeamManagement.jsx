@@ -15,7 +15,7 @@ const TeamManagement = () => {
 
   const fetchTeamMembers = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/team");
+      const response = await axios.get("https://eyehospital-kkd8.onrender.com/api/team");
       setTeam(response.data);
     } catch (error) {
       console.error("Error fetching team members:", error);
@@ -39,9 +39,9 @@ const TeamManagement = () => {
 
     try {
       if (editingId) {
-        await axios.put(`http://localhost:5000/api/team/${editingId}`, formDataObj);
+        await axios.put(`https://eyehospital-kkd8.onrender.com/team/${editingId}`, formDataObj);
       } else {
-        await axios.post("http://localhost:5000/api/team", formDataObj);
+        await axios.post("https://eyehospital-kkd8.onrender.com/api/team", formDataObj);
       }
       setFormData({ name: "", post: "", image: null });
       setEditingId(null);
@@ -53,7 +53,7 @@ const TeamManagement = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/team/${id}`);
+      await axios.delete(`https://eyehospital-kkd8.onrender.com/api/team/${id}`);
       fetchTeamMembers();
     } catch (error) {
       console.error("Error deleting member:", error);

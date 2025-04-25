@@ -12,6 +12,7 @@ import Gallery from "../pages/about/gallery";
 import Services from "../pages/services";
 import Notice from "../pages/notice";
 import FaQs from './../pages/faqs.jsx';
+import Appointment from './../pages/appointment.jsx';
 const PublicLayout = () => {
   return (
     <>
@@ -24,6 +25,7 @@ const PublicLayout = () => {
         <Route path="/about/gallery" element={<Gallery />} />
         <Route path="/services" element={<Services />} />
         <Route path="/notice" element={<Notice />} />
+        <Route path="/appointment" element={<Appointment />} />
         <Route path="/faqs" element={<FaQs />} />
       </Routes>
       <Footer />

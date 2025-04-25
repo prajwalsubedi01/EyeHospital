@@ -20,7 +20,7 @@ const ServiceManagement = () => {
   const fetchServices = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://localhost:5000/api/services");
+      const res = await axios.get("https://eyehospital-kkd8.onrender.com/api/services");
       setServices(res.data);
     } catch (err) {
       console.error("Failed to fetch services", err);
@@ -38,9 +38,9 @@ const ServiceManagement = () => {
 
     try {
       if (editingId) {
-        await axios.put(`http://localhost:5000/api/services/${editingId}`, formData);
+        await axios.put(`https://eyehospital-kkd8.onrender.com/api/services/${editingId}`, formData);
       } else {
-        await axios.post("http://localhost:5000/api/services", formData);
+        await axios.post("https://eyehospital-kkd8.onrender.com/api/services", formData);
       }
       fetchServices();
       setTitle("");
@@ -57,7 +57,7 @@ const ServiceManagement = () => {
     if (!window.confirm("Are you sure you want to delete this service?")) return;
     setLoading(true);
     try {
-      await axios.delete(`http://localhost:5000/api/services/${id}`);
+      await axios.delete(`https://eyehospital-kkd8.onrender.com/api/services/${id}`);
       setServices(services.filter((s) => s._id !== id));
     } catch (error) {
       console.error("Error deleting service", error);
@@ -136,11 +136,11 @@ const ServiceManagement = () => {
                 <td className="border p-2">
                   {service.image && (
                     <img
-                      src={service.image.startsWith("http") ? service.image : `http://localhost:5000/uploads/${service.image}`}
+                      src={service.image.startsWith("http") ? service.image : `https://eyehospital-kkd8.onrender.com/uploads/${service.image}`}
                       alt="Service"
                       className="h-16 w-16 rounded-md cursor-pointer"
                       onClick={() =>
-                        window.open(service.image.startsWith("http") ? service.image : `http://localhost:5000/uploads/${service.image}`, "_blank")
+                        window.open(service.image.startsWith("http") ? service.image : `https://eyehospital-kkd8.onrender.com/uploads/${service.image}`, "_blank")
                       }
                     />
                   )}
