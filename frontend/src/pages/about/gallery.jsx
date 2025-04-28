@@ -48,7 +48,7 @@ const GalleryPage = () => {
             className="rounded-xl overflow-hidden shadow-md cursor-pointer transform hover:scale-105 transition duration-300"
           >
             <img
-              src={photo.url}
+              src={photo.imageUrl}
               alt={`Gallery ${index + 1}`}
               className="w-full h-56 object-cover"
             />
@@ -61,7 +61,7 @@ const GalleryPage = () => {
           <button onClick={closePreview} className="absolute top-5 right-8 text-4xl text-white">✖</button>
           <button onClick={goLeft} className="absolute left-5 text-4xl text-white">←</button>
           <img
-            src={photos[currentIndex].url}
+            src={photos[currentIndex].imageUrl}
             alt="Full Preview"
             className="max-w-[90%] max-h-[80%] rounded-lg shadow-lg"
           />

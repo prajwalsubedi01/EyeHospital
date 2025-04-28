@@ -39,7 +39,7 @@ const AdminLogin = () => {
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-100">
       <div className="bg-white p-8 shadow-md rounded-lg w-full max-w-md">
-        <h2 className="text-2xl font-semibold text-center mb-6">Admin Login</h2>
+        <h2 className="text-2xl font-semibold text-center mb-6">Eye Hospital Admin Login</h2>
 
         {errorMessage && <div className="text-red-500 text-center">{errorMessage}</div>}
 

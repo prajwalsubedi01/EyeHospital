@@ -11,20 +11,23 @@ exports.getAllServices = async (req, res) => {
 };
 
 // Create new service
+// In your service controller
 exports.createService = async (req, res) => {
   try {
     const { title, description } = req.body;
-    const image = req.file ? req.file.filename : null;
+    let imageUrl = null;
 
-    if ( !title || !description || !image) {
-      return res.status(400).json({ message: 'All fields are required.' });
+    if (req.file) {
+      const result = await cloudinary.uploader.upload(req.file.path);
+      imageUrl = result.secure_url; // This gives full Cloudinary URL
     }
 
-    const service = new Service({ title, description, image });
-    const saved = await service.save();
-    res.status(201).json(saved);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    const service = new Service({ title, description, image: imageUrl });
+    await service.save();
+    
+    res.status(201).json(service);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
 

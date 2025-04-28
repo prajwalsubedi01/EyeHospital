@@ -18,7 +18,7 @@ export default defineConfig({
     host: '0.0.0.0',  // Allows access from other devices on the same network
     port: 5173,       // Default Vite port (change if needed)
     proxy: {
-      '/api': 'http://192.168.1.68:5000', // Proxy API calls to backend
+      '/api': 'https://eyehospital-kkd8.onrender.com' // Proxy API calls to backend
     },
   },
 })
