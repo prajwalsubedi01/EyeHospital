@@ -54,12 +54,19 @@ const ServiceManagement = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
+  
+    // Validate that the image is either selected or not required
+    if (!formData.image && !editingId) {
+      toast.error("Please upload an image.");
+      setLoading(false);
+      return;
+    }
+  
     const data = new FormData();
     data.append('title', formData.title);
     data.append('description', formData.description);
     if (formData.image) data.append('image', formData.image);
-
+  
     try {
       const token = localStorage.getItem('token');
       const config = {
@@ -68,7 +75,7 @@ const ServiceManagement = () => {
           Authorization: `Bearer ${token}`,
         },
       };
-
+  
       if (editingId) {
         await axios.put(`/api/services/${editingId}`, data, config);
         toast.success('Service updated successfully');
@@ -76,7 +83,7 @@ const ServiceManagement = () => {
         await axios.post('/api/services', data, config);
         toast.success('Service created successfully');
       }
-
+  
       // Refresh services
       const response = await axios.get('/api/services');
       setServices(response.data);
@@ -88,7 +95,6 @@ const ServiceManagement = () => {
       setLoading(false);
     }
   };
-
   // Reset form
   const resetForm = () => {
     setFormData({

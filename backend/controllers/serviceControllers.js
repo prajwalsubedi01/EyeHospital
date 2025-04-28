@@ -44,7 +44,7 @@ exports.createService = async (req, res) => {
     const service = new Service({ 
       title, 
       description, 
-      image: imageUrl 
+      image: imageUrl || '' // Ensure image is never undefined
     });
     
     await service.save();
@@ -57,7 +57,6 @@ exports.createService = async (req, res) => {
     });
   }
 };
-
 // Update service
 exports.updateService = async (req, res) => {
   try {
