@@ -28,40 +28,36 @@ exports.getAllServices = async (req, res) => {
 
 exports.createService = async (req, res) => {
   try {
-    const { title, description, image } = req.body;
+    const { title, description } = req.body;
+    const file = req.file; // multer saves file here
 
     // Validate inputs
-    if (!title || !description || !image) {
+    if (!title || !description || !file) {
       return res.status(400).json({ error: 'Title, description, and image are required' });
     }
 
-    // If you want to delete an old image before uploading a new one:
-    if (req.body.oldImageUrl) {
-      // Extract public ID from the Cloudinary image URL (e.g., "v1745861197/EyeHospitalUploads/filename.png")
-      const publicId = req.body.oldImageUrl.split('/').slice(-2).join('/').split('.')[0];
+    // Upload image to Cloudinary
+    const result = await cloudinary.uploader.upload(file.path, {
+      folder: 'services',
+    });
 
-      // Delete the image from Cloudinary
-      await cloudinary.uploader.destroy(publicId, (error, result) => {
-        if (error) {
-          console.error('Cloudinary delete error:', error);
-          return res.status(500).json({ error: 'Failed to delete old image from Cloudinary' });
-        }
-        console.log('Old image deleted from Cloudinary:', result);
-      });
-    }
-
-    // Now save the new service with the image URL
+    // Save new service
     const newService = new Service({
       title,
       description,
-      image,  // Store the Cloudinary URL here
+      image: result.public_id, // or result.secure_url if you want full URL
     });
 
     const savedService = await newService.save();
+
+    // Remove temporary file after upload
+    fs.unlinkSync(file.path);
+
     res.status(201).json(savedService);
 
   } catch (error) {
     console.error('Error in createService:', error);
+    if (req.file) fs.unlinkSync(req.file.path); // Clean up temp file if error
     res.status(500).json({ error: 'An error occurred while creating the service' });
   }
 };
