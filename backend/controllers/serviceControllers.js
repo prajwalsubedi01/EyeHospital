@@ -26,35 +26,43 @@ exports.getAllServices = async (req, res) => {
   }
 };
 
-// Create new service
 exports.createService = async (req, res) => {
   try {
-    const { title, description } = req.body;
-    let imageUrl = '';
+    const { title, description, image } = req.body;
 
-    if (req.file) {
-      const result = await cloudinary.uploader.upload(req.file.path, {
-        folder: 'services'
-      });
-      imageUrl = result.secure_url;
-      // Remove the temporary file
-      fs.unlinkSync(req.file.path);
+    // Validate inputs
+    if (!title || !description || !image) {
+      return res.status(400).json({ error: 'Title, description, and image are required' });
     }
 
-    const service = new Service({ 
-      title, 
-      description, 
-      image: imageUrl || '' // Ensure image is never undefined
+    // If you want to delete an old image before uploading a new one:
+    if (req.body.oldImageUrl) {
+      // Extract public ID from the Cloudinary image URL (e.g., "v1745861197/EyeHospitalUploads/filename.png")
+      const publicId = req.body.oldImageUrl.split('/').slice(-2).join('/').split('.')[0];
+
+      // Delete the image from Cloudinary
+      await cloudinary.uploader.destroy(publicId, (error, result) => {
+        if (error) {
+          console.error('Cloudinary delete error:', error);
+          return res.status(500).json({ error: 'Failed to delete old image from Cloudinary' });
+        }
+        console.log('Old image deleted from Cloudinary:', result);
+      });
+    }
+
+    // Now save the new service with the image URL
+    const newService = new Service({
+      title,
+      description,
+      image,  // Store the Cloudinary URL here
     });
-    
-    await service.save();
-    res.status(201).json(service);
+
+    const savedService = await newService.save();
+    res.status(201).json(savedService);
+
   } catch (error) {
-    console.error('Error creating service:', error);
-    if (req.file) fs.unlinkSync(req.file.path); // Clean up if error occurs
-    res.status(500).json({ 
-      message: error.message || 'Failed to create service' 
-    });
+    console.error('Error in createService:', error);
+    res.status(500).json({ error: 'An error occurred while creating the service' });
   }
 };
 // Update service
