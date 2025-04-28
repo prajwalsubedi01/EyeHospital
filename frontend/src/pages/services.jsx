@@ -5,34 +5,23 @@ import { FaSpinner } from "react-icons/fa";
 
 const ServicePage = () => {
   const [services, setServices] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchServices = async () => {
-      setLoading(true);
-      setError(null);
       try {
         const res = await axios.get("https://eyehospital-kkd8.onrender.com/api/services");
-        setServices(res.data);
+        setServices(res.data); // Set fetched services in state
       } catch (err) {
         console.error("Failed to fetch services", err);
-        setError("Failed to load services. Please try again later.");
+        setError("Failed to load services. Please try again later."); // Set error message if API fails
       } finally {
-        setLoading(false);
+        setLoading(false); // Set loading to false once request is finished
       }
     };
     fetchServices();
   }, []);
-
-  // Function to extract Cloudinary public ID
-  const getCloudinaryId = (url) => {
-    if (!url) return null;
-    const parts = url.split('/');
-    const uploadIndex = parts.findIndex(part => part === 'upload');
-    if (uploadIndex === -1) return null;
-    return parts.slice(uploadIndex + 2).join('/').split('.')[0];
-  };
 
   return (
     <div className="bg-gray-100 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
@@ -52,10 +41,8 @@ const ServicePage = () => {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
             {services.map((service) => {
-              const cloudinaryId = getCloudinaryId(service.image);
-              const imageUrl = cloudinaryId 
-                ? `https://res.cloudinary.com/YOUR_CLOUD_NAME/image/upload/w_300,h_300,c_fill/${cloudinaryId}`
-                : '/placeholder.jpg';
+              // Modify the image URL to add size and transformation if necessary
+              const imageUrl = service.image ? `${service.image}?w_300,h_300,c_fill` : '/placeholder.jpg';
 
               return (
                 <div
@@ -69,7 +56,7 @@ const ServicePage = () => {
                       className="w-full h-full object-cover"
                       onError={(e) => {
                         e.target.onerror = null;
-                        e.target.src = '/placeholder.jpg';
+                        e.target.src = '/placeholder.jpg'; // Fallback to placeholder image if error occurs
                       }}
                     />
                   </div>
