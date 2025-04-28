@@ -4,13 +4,9 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
 const app = express();
-const corsOptions = {
-  origin: ['http://localhost:3000',"http://aesthitic.netlify.app/"], // Allow frontend to access the backend
-  methods: ['GET', 'POST', 'DELETE'], // Allowed methods
-  allowedHeaders: ['Content-Type'], // Allowed headers
-};
 
-app.use(cors(corsOptions)); // Enable CORS with options
+
+app.use(cors()); // Enable CORS with options
 app.use(express.json());
 
 
