@@ -20,7 +20,7 @@ const NoticeManagement = () => {
   const fetchNotices = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("token"); // Get token from localStorage
+      const token = localStorage.getItem("adminToken"); // Get token from localStorage
       if (!token) {
         alert("You must be logged in to view notices.");
         return;
@@ -41,39 +41,38 @@ const NoticeManagement = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+  
+    // Get the admin token from localStorage
+    const token = localStorage.getItem("adminToken");
+  
+    // Check if the token exists
+    if (!token) {
+      alert("You need to log in as an admin to manage notices.");
+      setLoading(false);
+      return;
+    }
+  
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
     if (image) formData.append("image", image);
-
+  
     try {
-      const token = localStorage.getItem("token"); // Get token from localStorage
-      if (!token) {
-        alert("You must be logged in to add/edit notices.");
-        return;
-      }
-
+      // Include the token in the headers
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+  
       if (editingId) {
         await axios.put(
           `https://eyehospital-kkd8.onrender.com/api/notice/${editingId}`,
           formData,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`, // Include token in the request header
-            },
-          }
+          { headers }
         );
       } else {
-        await axios.post(
-          "https://eyehospital-kkd8.onrender.com/api/notice",
-          formData,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`, // Include token in the request header
-            },
-          }
-        );
+        await axios.post("https://eyehospital-kkd8.onrender.com/api/notice", formData, { headers });
       }
+  
       fetchNotices();
       setTitle("");
       setDescription("");
@@ -84,12 +83,12 @@ const NoticeManagement = () => {
     }
     setLoading(false);
   };
-
+  
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this notice?")) return;
     setLoading(true);
     try {
-      const token = localStorage.getItem("token"); // Get token from localStorage
+      const token = localStorage.getItem("adminToken"); // Get token from localStorage
       if (!token) {
         alert("You must be logged in to delete notices.");
         return;
