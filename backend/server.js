@@ -6,7 +6,14 @@ const path = require("path");
 const app = express();
 
 
-app.use(cors()); // Enable CORS with options
+const corsOptions = {
+  origin: ['https://aesthitic.netlify.app', 'http://localhost:3000'], // Allow these domains to access your backend
+  methods: ['GET', 'POST', 'DELETE', 'OPTIONS'], // Allow these HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allow these headers
+};
+
+// Apply CORS middleware to your application
+app.use(cors(corsOptions));// Enable CORS with options
 app.use(express.json());
 
 
@@ -31,7 +38,7 @@ app.use("/api/team", teamRoutes);
 app.use('/api/gallery', galleryRoutes);
 //service routes
 app.use('/api/services', serviceRoutes);
-
+app.options('*', cors(corsOptions));
 // Database connection
 const connectDB = async () => {
   try {
