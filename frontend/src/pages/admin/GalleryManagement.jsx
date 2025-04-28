@@ -22,7 +22,7 @@ const GalleryManagement = () => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setSelectedFile(file);
-    setPreview(URL.createObjectURL(file));
+    setPreview(file ? URL.createObjectURL(file) : null);
   };
 
   const handleUpload = async () => {
@@ -32,7 +32,15 @@ const GalleryManagement = () => {
     formData.append("image", selectedFile);
 
     try {
-      await axios.post("https://eyehospital-kkd8.onrender.com/api/gallery", formData);
+      await axios.post(
+        "https://eyehospital-kkd8.onrender.com/api/gallery/photo",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       setSelectedFile(null);
       setPreview(null);
       fetchImages();
@@ -42,7 +50,6 @@ const GalleryManagement = () => {
   };
 
   const handleDelete = async (id) => {
-    console.log("Trying to delete:", id);
     try {
       await axios.delete(`https://eyehospital-kkd8.onrender.com/api/gallery/${id}`);
       fetchImages();
@@ -53,9 +60,9 @@ const GalleryManagement = () => {
 
   return (
     <div className="p-4 max-w-7xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Gallery Management</h1>
+      <h1 className="text-2xl font-bold mb-6 text-center">Gallery Management</h1>
 
-      <div className="mb-6 flex flex-col sm:flex-row items-center gap-4">
+      <div className="mb-8 flex flex-col sm:flex-row items-center gap-4">
         <input
           type="file"
           accept="image/*"
@@ -71,7 +78,8 @@ const GalleryManagement = () => {
         )}
         <button
           onClick={handleUpload}
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+          disabled={!selectedFile}
+          className={`px-4 py-2 rounded transition ${selectedFile ? "bg-blue-600 hover:bg-blue-700 text-white" : "bg-gray-400 cursor-not-allowed text-white"}`}
         >
           Upload
         </button>
@@ -81,7 +89,7 @@ const GalleryManagement = () => {
         {images.map((img) => (
           <div key={img._id} className="relative group">
             <img
-              src={img.url || img.imageUrl}
+              src={img.imageUrl}
               alt="Gallery"
               className="w-full h-48 object-cover rounded shadow-md"
             />
