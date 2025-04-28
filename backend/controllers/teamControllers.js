@@ -1,6 +1,13 @@
 const TeamMember = require("../models/TeamMember");
 const cloudinary = require('cloudinary').v2;
 
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
 const getTeamMembers = async (req, res) => {
     try {
         const teamMembers = await TeamMember.find();
@@ -12,28 +19,39 @@ const getTeamMembers = async (req, res) => {
 
 const addTeamMember = async (req, res) => {
     try {
-        const { name, post } = req.body;
+        const { name, post, phone, facebook, whatsapp, instagram } = req.body;
         
         if (!name || !post || !req.file) {
-            return res.status(400).json({ message: "All fields are required" });
+            return res.status(400).json({ message: "Name, post and image are required" });
         }
+
+        // Upload image to Cloudinary
+        const result = await cloudinary.uploader.upload(req.file.path, {
+            folder: 'EyeHospitalUploads',
+            transformation: [{ width: 800, height: 800, crop: 'limit' }]
+        });
 
         const teamMember = new TeamMember({
             name, 
-            post, 
-            image: req.file.path // Store Cloudinary URL
+            post,
+            phone,
+            facebook,
+            whatsapp,
+            instagram,
+            image: result.secure_url
         });
 
         await teamMember.save();
-        res.status(201).json({ message: "Team member added successfully" });
+        res.status(201).json({ message: "Team member added successfully", teamMember });
     } catch (error) {
+        console.error(error);
         res.status(500).json({ message: "Server error" });
     }
 };
 
 const updateTeamMember = async (req, res) => {
     try {
-        const { name, post } = req.body;
+        const { name, post, phone, facebook, whatsapp, instagram } = req.body;
         const teamMember = await TeamMember.findById(req.params.id);
 
         if (!teamMember) {
@@ -41,19 +59,32 @@ const updateTeamMember = async (req, res) => {
         }
 
         if (req.file) {
-            // Delete old image from Cloudinary
-            const publicId = teamMember.image.split('/').pop().split('.')[0];
-            await cloudinary.uploader.destroy(`EyeHospitalUploads/${publicId}`);
+            // Delete old image from Cloudinary if it exists
+            if (teamMember.image) {
+                const publicId = teamMember.image.split('/').pop().split('.')[0];
+                await cloudinary.uploader.destroy(`EyeHospitalUploads/${publicId}`);
+            }
             
-            teamMember.image = req.file.path;
+            // Upload new image to Cloudinary
+            const result = await cloudinary.uploader.upload(req.file.path, {
+                folder: 'EyeHospitalUploads',
+                transformation: [{ width: 800, height: 800, crop: 'limit' }]
+            });
+            teamMember.image = result.secure_url;
         }
 
+        // Update fields
         teamMember.name = name || teamMember.name;
         teamMember.post = post || teamMember.post;
+        teamMember.phone = phone || teamMember.phone;
+        teamMember.facebook = facebook || teamMember.facebook;
+        teamMember.whatsapp = whatsapp || teamMember.whatsapp;
+        teamMember.instagram = instagram || teamMember.instagram;
 
         await teamMember.save();
-        res.json({ message: "Team member updated successfully" });
+        res.json({ message: "Team member updated successfully", teamMember });
     } catch (error) {
+        console.error(error);
         res.status(500).json({ message: "Server error" });
     }
 };
@@ -67,12 +98,15 @@ const deleteTeamMember = async (req, res) => {
         }
 
         // Delete image from Cloudinary
-        const publicId = teamMember.image.split('/').pop().split('.')[0];
-        await cloudinary.uploader.destroy(`EyeHospitalUploads/${publicId}`);
+        if (teamMember.image) {
+            const publicId = teamMember.image.split('/').pop().split('.')[0];
+            await cloudinary.uploader.destroy(`EyeHospitalUploads/${publicId}`);
+        }
         
         await teamMember.deleteOne();
         res.json({ message: "Team member deleted successfully" });
     } catch (error) {
+        console.error(error);
         res.status(500).json({ message: "Server error" });
     }
 };

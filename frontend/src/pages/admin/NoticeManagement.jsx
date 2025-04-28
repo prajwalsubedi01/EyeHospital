@@ -11,7 +11,7 @@ const NoticeManagement = () => {
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const noticesPerPage = 5;
+  const noticesPerPage = 2;
 
   useEffect(() => {
     fetchNotices();
@@ -42,10 +42,8 @@ const NoticeManagement = () => {
     e.preventDefault();
     setLoading(true);
   
-    // Get the admin token from localStorage
     const token = localStorage.getItem("adminToken");
   
-    // Check if the token exists
     if (!token) {
       alert("You need to log in as an admin to manage notices.");
       setLoading(false);
@@ -58,10 +56,7 @@ const NoticeManagement = () => {
     if (image) formData.append("image", image);
   
     try {
-      // Include the token in the headers
-      const headers = {
-        Authorization: `Bearer ${token}`,
-      };
+      const headers = { Authorization: `Bearer ${token}` };
   
       if (editingId) {
         await axios.put(
@@ -83,12 +78,12 @@ const NoticeManagement = () => {
     }
     setLoading(false);
   };
-  
+
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this notice?")) return;
     setLoading(true);
     try {
-      const token = localStorage.getItem("adminToken"); // Get token from localStorage
+      const token = localStorage.getItem("adminToken");
       if (!token) {
         alert("You must be logged in to delete notices.");
         return;
@@ -98,7 +93,7 @@ const NoticeManagement = () => {
         `https://eyehospital-kkd8.onrender.com/api/notice/${id}`,
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Include token in the request header
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -173,7 +168,17 @@ const NoticeManagement = () => {
           {currentNotices.map((notice) => (
             <tr key={notice._id} className="border">
               <td className="border p-2">{notice.title}</td>
-              <td className="border p-2">{notice.description}</td>
+              <td className="border p-2">
+                <div
+                  style={{
+                    whiteSpace: "pre-line", // Preserve line breaks
+                    wordWrap: "break-word", // Ensure text wrapping in case of long lines
+                    maxWidth: "200px", // Optional: Control text wrapping width
+                  }}
+                >
+                  {notice.description}
+                </div>
+              </td>
               <td className="border p-2">
                 {notice.image && (
                   <img

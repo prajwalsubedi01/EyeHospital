@@ -1,4 +1,4 @@
-const mongoose=require('mongoose');
+const mongoose = require('mongoose');
 
 const teamMemberSchema = new mongoose.Schema(
   {
@@ -10,12 +10,24 @@ const teamMemberSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    phone: {
+      type: String,
+    },
+    facebook: {
+      type: String,
+    },
+    whatsapp: {
+      type: String,
+    },
+    instagram: {
+      type: String,
+    },
     image: {
-      type: String, // Store filename or URL
+      type: String, // Cloudinary URL
       required: true,
     },
   },
   { timestamps: true }
 );
 
-module.exports=mongoose.model('TeamMember',teamMemberSchema)
+module.exports = mongoose.model('TeamMember', teamMemberSchema);
