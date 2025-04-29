@@ -37,14 +37,14 @@ const teamRoutes = require('./routes/teamRoutes');
 const noticeRoutes = require('./routes/noticeRoutes');
 const galleryRoutes = require('./routes/galleryRoutes');
 const serviceRoutes = require('./routes/serviceRoutes');
-
+const appointmentRoutes = require('./routes/appointmentRoutes');
 // Use routes
 app.use("/api/admin", adminRoutes);
 app.use("/api/team", teamRoutes);
 app.use("/api/notice", noticeRoutes);
 app.use("/api/gallery", galleryRoutes);
 app.use("/api/services", serviceRoutes);
-
+app.use("/api/appointment", appointmentRoutes);
 // Database connection
 const connectDB = async () => {
     try {

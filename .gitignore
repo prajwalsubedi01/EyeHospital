@@ -11,9 +11,7 @@ frontend/dist/
 frontend/build/
 
 # Optional: ignore uploads if storing images locally
-
-
-
+node_modules/
 # OS-specific files
 .DS_Store
 Thumbs.db
