@@ -127,7 +127,7 @@ const Introduction = () => {
               />
             </div>
             <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-lg hidden md:block">
-              <div className="text-blue-700 font-bold text-2xl">15+</div>
+              <div className="text-blue-700 font-bold text-2xl">1+</div>
               <div className="text-gray-600">Years of Experience</div>
             </div>
           </motion.div>

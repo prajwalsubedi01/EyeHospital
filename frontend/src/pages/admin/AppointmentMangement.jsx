@@ -30,7 +30,7 @@ const AppointmentManagement = () => {
   const fetchAppointments = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:5000/api/appointment', {
+      const response = await axios.get('https://eyehospital-kkd8.onrender.com/api/appointment', {
         headers: { Authorization: `Bearer ${token}` }
       });
       
@@ -52,7 +52,7 @@ const AppointmentManagement = () => {
     try {
       setLoading(true);
       const response = await axios.put(
-        `http://localhost:5000/api/appointment/${selectedAppointment._id}/status`,
+        `https://eyehospital-kkd8.onrender.com/api/appointment/${selectedAppointment._id}/status`,
         { status, reason },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -108,7 +108,7 @@ const AppointmentManagement = () => {
     if (window.confirm('Are you sure you want to permanently delete this appointment?')) {
       try {
         await axios.delete(
-          `http://localhost:5000/api/appointment/${id}`,
+          `https://eyehospital-kkd8.onrender.com/api/appointment/${id}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         toast.success('Appointment deleted permanently');

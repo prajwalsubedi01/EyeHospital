@@ -1,45 +1,4 @@
-// import React, { useState } from 'react';
-// import { motion, AnimatePresence } from 'framer-motion';
-// import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 
-// const FAQ = () => {
-//   const [activeIndex, setActiveIndex] = useState(null);
-
-//   const toggleAnswer = (index) => {
-//     setActiveIndex(activeIndex === index ? null : index);
-//   };
-
-  
-
-//   return (
-//     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-16 px-4 sm:px-6 lg:px-8">
-//       <div className="max-w-4xl mx-auto">
-//         {/* Header */}
-       
-
-//         {/* Additional Help */}
-//         <motion.div
-//           initial={{ opacity: 0 }}
-//           animate={{ opacity: 1 }}
-//           transition={{ delay: 0.6 }}
-//           className="mt-16 bg-blue-100 rounded-xl p-6 text-center"
-//         >
-//           <h3 className="text-xl font-semibold text-gray-800 mb-3">
-//             Still have questions?
-//           </h3>
-//           <p className="text-gray-700 mb-4">
-//             Our team is ready to help with any additional inquiries you may have.
-//           </p>
-//           <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition-colors duration-300">
-//             Contact Us
-//           </button>
-//         </motion.div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default FAQ;
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiChevronDown, FiChevronUp, FiPhone, FiFacebook, FiMessageSquare, FiX } from 'react-icons/fi';
@@ -48,9 +7,9 @@ const FAQ = () => {
   const [activeIndex, setActiveIndex] = useState(null);
   const [showContactModal, setShowContactModal] = useState(false);
   const [contactLinks, setContactLinks] = useState({
-    phone: '1234567890',
-    facebook: 'https://facebook.com/yourhospital',
-    whatsapp: 'https://wa.me/1234567890'
+    phone: '9826991540',
+    facebook: 'https://www.facebook.com/profile.php?id=61574550796978',
+    whatsapp: 'https://wa.me/9826991540'
   });
   const [editMode, setEditMode] = useState(false);
   const [tempLinks, setTempLinks] = useState({...contactLinks});

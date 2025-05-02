@@ -88,7 +88,7 @@ const AppointmentForm = () => {
       // Combine date and time
       const appointmentDateTime = `${formData.date}T${moment(formData.time, 'hh:mm A').format('HH:mm')}`;
       
-      const response = await axios.post('http://localhost:5000/api/appointment', {
+      const response = await axios.post('https://eyehospital-kkd8.onrender.com/api/appointment', {
         ...formData,
         date: appointmentDateTime
       });
