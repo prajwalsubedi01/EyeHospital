@@ -39,6 +39,9 @@ const galleryRoutes = require('./routes/galleryRoutes');
 const serviceRoutes = require('./routes/serviceRoutes');
 const appointmentRoutes = require('./routes/appointmentRoutes');
 // Use routes
+app.get('/ping', (req, res) => {
+  res.status(200).send('✅ Server is awake and running!');
+});
 app.use("/api/admin", adminRoutes);
 app.use("/api/team", teamRoutes);
 app.use("/api/notice", noticeRoutes);
